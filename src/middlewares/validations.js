@@ -76,6 +76,16 @@ const validateAge = (req, res, next) => {
 
 };
 
+const validateTalk = (req, res, next) => {
+  const { talk } = req.body;
+
+  if (!talk) {
+    return res.status(400).json({ message: 'O campo "talk" é obrigatório' });
+  }
+
+  return next();
+};
+
 // const validateName = (req, res, next) => {
   
 // }
@@ -90,4 +100,5 @@ module.exports = {
   validateToken,
   validateName,
   validateAge,
+  validateTalk,
 };
