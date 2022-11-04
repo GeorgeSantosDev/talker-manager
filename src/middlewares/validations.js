@@ -46,7 +46,6 @@ const validateToken = (req, res, next) => {
 const validateName = (req, res, next) => {
   const MINIMUM_NAME_LENGTH = 3;
   const { name } = req.body;
-  // console.log(req.body);
 
   if (!name) {
     return res.status(400).json({ message: 'O campo "name" é obrigatório' });
@@ -86,12 +85,23 @@ const validateTalk = (req, res, next) => {
   return next();
 };
 
-// const validateName = (req, res, next) => {
-  
-// }
+const validateDate = (req, res, next) => {
+  const { talk: { watchedAt } } = req.body;
+  const isFormatDate = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i;
 
-// const validateName = (req, res, next) => {
-  
+  if (!watchedAt) {
+    return res.status(400).json({ message: 'O campo "watchedAt" é obrigatório' });
+  }
+
+  if (!isFormatDate.test(watchedAt)) {
+    return res.status(400).json({ message: 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"' });
+  }
+
+  return next();
+};
+
+// const validateRate = (req, res, next) => {
+//   const { talk: { rate } } = req.body;
 // }
 
 module.exports = {
@@ -101,4 +111,5 @@ module.exports = {
   validateName,
   validateAge,
   validateTalk,
+  validateDate,
 };
