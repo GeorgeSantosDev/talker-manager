@@ -56,7 +56,6 @@ const validateName = (req, res, next) => {
   }
 
   return next();
-
 };
 
 const validateAge = (req, res, next) => {
@@ -72,7 +71,6 @@ const validateAge = (req, res, next) => {
   }
 
   return next();
-
 };
 
 const validateTalk = (req, res, next) => {
