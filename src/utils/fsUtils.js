@@ -13,6 +13,11 @@ const readFile = async () => {
   }
 };
 
+const writeFile = async (file) => {
+  await fs.writeFile(join(__dirname, path), JSON.stringify(file));
+};
+
 module.exports = {
   readFile,
+  writeFile,
 };
