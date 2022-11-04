@@ -100,9 +100,21 @@ const validateDate = (req, res, next) => {
   return next();
 };
 
-// const validateRate = (req, res, next) => {
-//   const { talk: { rate } } = req.body;
-// }
+const validateRate = (req, res, next) => {
+  const UPPER_LIMIT = 5;
+  const LOWER_LIMIT = 1;
+  const { talk: { rate } } = req.body;
+
+  if (!rate) {
+    return res.status(400).json({ message: 'O campo "rate" é obrigatório' });
+  }
+
+  if (!Number.isInteger(rate) || rate < LOWER_LIMIT || rate > UPPER_LIMIT) {
+    return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
+  } 
+
+  return next();
+};
 
 module.exports = {
   validateEmail,
@@ -112,4 +124,5 @@ module.exports = {
   validateAge,
   validateTalk,
   validateDate,
+  validateRate,
 };
