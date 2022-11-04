@@ -1,6 +1,6 @@
 const express = require('express');
 const { readFile } = require('../utils/fsUtils');
-const { getById } = require('../utils/handleTalker');
+const { getById } = require('../utils/handleTalkerAndLogin');
 
 const route = express.Router();
 
