@@ -103,7 +103,7 @@ const validateRate = (req, res, next) => {
   const LOWER_LIMIT = 1;
   const { talk: { rate } } = req.body;
 
-  if (!rate) {
+  if (!('rate' in req.body.talk)) {
     return res.status(400).json({ message: 'O campo "rate" é obrigatório' });
   }
 
