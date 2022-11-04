@@ -34,28 +34,36 @@ route.post('/talker',
   validateTalk,
   validateDate,
   validateRate, async (req, res) => {
-    const newTalker = req.body;
     const talkers = await readFile();
+    const id = talkers[talkers.length - 1].id + 1;
+    const newTalker = { id, ...req.body };
 
     await writeFile([...talkers, newTalker]);
 
   res.status(201).json(newTalker);
 });
 
-// route.put('/talker',
-//   validateToken,
-//   validateName,
-//   validateAge,
-//   validateTalk,
-//   validateDate,
-//   validateRate, async (req, res) => {
-//     const talkerUpdate = req.body;
-//     const talkers = await readFile();
+route.put('/talker/:id',
+  validateToken,
+  validateName,
+  validateAge,
+  validateTalk,
+  validateDate,
+  validateRate, async (req, res) => {
+    const { id } = req.params;
+    const talkerUpdate = { id, ...req.body };
+    const talkers = await readFile();
 
+    const talkersUpdated = talkers.map((talker) => {
+      if (talker.id === Number(id)) {
+        return talkerUpdate;
+      }
+      return talker;
+    });
 
-//     await writeFile([...talkers, newTalker]);
+    await writeFile(talkersUpdated);
 
-//   res.status(200).json(newTalker);
-// });
+  res.status(200).json(talkerUpdate);
+});
 
 module.exports = route;
