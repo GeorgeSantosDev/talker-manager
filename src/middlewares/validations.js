@@ -43,8 +43,38 @@ const validateToken = (req, res, next) => {
   return next();
 };
 
+const validateName = (req, res, next) => {
+  const MINIMUM_NAME_LENGTH = 3;
+  const { name } = req.body;
+  // console.log(req.body);
+
+  if (!name) {
+    return res.status(400).json({ message: 'O campo "name" é obrigatório' });
+  }
+
+  if (name.length < MINIMUM_NAME_LENGTH) {
+    return res.status(400).json({ message: 'O "name" deve ter pelo menos 3 caracteres' });
+  }
+
+  return next();
+
+};
+
+// const validateName = (req, res, next) => {
+  
+// }
+
+// const validateName = (req, res, next) => {
+  
+// }
+
+// const validateName = (req, res, next) => {
+  
+// }
+
 module.exports = {
   validateEmail,
   validatePassword,
   validateToken,
+  validateName,
 };
