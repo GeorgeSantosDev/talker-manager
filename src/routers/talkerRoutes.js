@@ -1,14 +1,25 @@
 const express = require('express');
 const { readFile, writeFile } = require('../utils/fsUtils');
-const { getById } = require('../utils/handleTalkerAndLogin');
+const { getById, getByName } = require('../utils/handleTalkerAndLogin');
 const { validateToken,
   validateName, 
   validateAge,
   validateTalk,
   validateDate,
   validateRate } = require('../middlewares/validations');
-
+  
 const route = express.Router();
+
+route.get('/talker/search', validateToken, async (req, res) => {
+  const { q } = req.query;
+  const talkers = await readFile();
+
+  if (!q) {
+   return res.status(200).json(talkers);
+  }
+  const response = await getByName(q);
+  res.status(200).json(response);
+});
 
 route.get('/talker', async (_req, res) => {
   const talkers = await readFile();
