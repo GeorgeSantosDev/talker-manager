@@ -60,9 +60,21 @@ const validateName = (req, res, next) => {
 
 };
 
-// const validateName = (req, res, next) => {
-  
-// }
+const validateAge = (req, res, next) => {
+  const MINIMUM_AGE = 18;
+  const { age } = req.body;
+
+  if (!age) {
+    return res.status(400).json({ message: 'O campo "age" é obrigatório' });
+  }
+
+  if (age < MINIMUM_AGE) {
+    return res.status(400).json({ message: 'A pessoa palestrante deve ser maior de idade' });
+  }
+
+  return next();
+
+};
 
 // const validateName = (req, res, next) => {
   
@@ -77,4 +89,5 @@ module.exports = {
   validatePassword,
   validateToken,
   validateName,
+  validateAge,
 };
