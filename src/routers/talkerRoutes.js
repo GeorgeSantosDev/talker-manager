@@ -51,7 +51,7 @@ route.put('/talker/:id',
   validateDate,
   validateRate, async (req, res) => {
     const { id } = req.params;
-    const talkerUpdate = { id, ...req.body };
+    const talkerUpdate = { id: Number(id), ...req.body };
     const talkers = await readFile();
 
     const talkersUpdated = talkers.map((talker) => {
