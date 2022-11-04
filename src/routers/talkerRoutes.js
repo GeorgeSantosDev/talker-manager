@@ -66,4 +66,15 @@ route.put('/talker/:id',
   res.status(200).json(talkerUpdate);
 });
 
+route.delete('/talker/:id', validateToken, async (req, res) => {
+    const { id } = req.params;
+
+    const talkers = await readFile();
+
+    const talkersUpdated = talkers.filter((talker) => talker.id !== Number(id));
+    await writeFile(talkersUpdated);
+
+  res.status(204).json();
+});
+
 module.exports = route;
